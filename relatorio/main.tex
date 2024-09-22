@@ -1,0 +1,198 @@
+\documentclass[12pt]{article}
+
+\usepackage{sbc-template} 
+\usepackage{graphicx,url}
+\usepackage{url}
+\usepackage[brazil]{babel} 
+\usepackage[utf8]{inputenc} 
+\usepackage[T1]{fontenc}
+\usepackage[normalem]{ulem}
+\usepackage[hidelinks]{hyperref}
+\usepackage[square,authoryear]{natbib}
+\usepackage{amssymb} 
+\usepackage{mathalfa} 
+\usepackage{algorithm} 
+\usepackage{algpseudocode} 
+\usepackage[table]{xcolor}
+\usepackage{array}
+\usepackage{titlesec}
+\usepackage{mdframed}
+\usepackage{amsmath} 
+\usepackage{booktabs}
+\usepackage{listings}
+\usepackage{xcolor}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+\lstdefinestyle{mystyle}{
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=10pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+\lstset{style=mystyle}
+
+\urlstyle{same}
+
+\newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{R}[1]{>{\raggedleft\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcommand\Tstrut{\rule{0pt}{2.6ex}} 
+\newcommand\Bstrut{\rule[-0.9ex]{0pt}{0pt}} 
+\newcommand{\scell}[2][c]{\begin{tabular}[#1]{@{}c@{}}#2\end{tabular}}
+\usepackage[nolist,nohyperlinks]{acronym}
+
+\title{Trabalho 1 de Aprendizado de Máquina}
+
+\author{Guilherme Vieira, Lucca Demichei\inst{1}}
+
+\address{Pontifícia Universidade Católica do Rio Grande Do Sul - PUCRS
+	\email{\{guilherme.camara, lucca.demichei\}@edu.pucrs.br}
+}
+\begin{document} 
+	\maketitle
+	\begin{resumo} 
+	\end{resumo}
+ 
+\section{Introdução}
+
+\label{sec:introducao}
+ 
+O aprendizado de máquina envolve a construção de modelos preditivos a partir de dados, e a diversidade de algoritmos disponíveis permite abordar uma vasta gama de problemas de classificação e regressão. Este trabalho tem como objetivo comparar três algoritmos de aprendizado supervisionado discutidos em aula — sendo eles a Árvore de Decisão, o K-Nearest Neighbors (KNN) e o Naive Bayes — com um quarto algoritmo gerado pelo modelo GPT-4 da OpenAI, desenvolvido sem o uso de bibliotecas como Scikit-learn. Ao longo da implementação, exploramos os fundamentos teóricos de cada técnica, discutindo seus prós e contras e analisando como esses algoritmos se comportam na prática. A comparação entre as implementações se concentra na eficiência, precisão, simplicidade e aplicabilidade dos algoritmos, buscando estabelecer paralelos com o conteúdo teórico discutido ao longo do curso.
+
+
+
+\section{Implementação dos algoritmos pelo ChatGPT}
+\label{sec:implementacao}
+
+\subsection{kNN}
+\subsubsection{Prompt utilizado}
+Implemente um algoritmo do Knn em python sem usar scikit-learn
+\subsubsection{Algoritmo}
+\lstinputlisting[language=python]{codigos/knn.py}
+
+\subsection{Naive Bayes}
+\subsubsection{Prompt utilizado}
+Implemente um algoritmo de Naive Bayes em python sem usar scikit-learn, ou seja, from scratch
+\subsubsection{Algoritmo}
+\lstinputlisting[language=python]{codigos/naivebayes.py}
+
+\subsection{Árvore de Decisão}
+\subsubsection{Prompt utilizado}
+Implemente um algoritmo de arvore de decisao em python sem usar scikit-leanr, ou seja, from scratch
+\subsubsection{Algoritmo}
+\lstinputlisting[language=python]{codigos/arvoredecisao.py}
+
+
+
+
+
+
+\section{Algoritmo rodando em um conjunto de dados}
+
+TODO: aparentemente precisa disso tambem...
+colocamos aqui os resultados
+
+
+
+
+\section{Comparação com o que foi visto em aula}
+\label{sec:comparacao}
+
+\subsection{kNN}
+
+A implementação de KNN gerada pelo ChatGPT segue de forma básica a estrutura do algoritmo discutido em aula, com a definição do número de vizinhos (k), cálculo da distância euclidiana como medida de similaridade, e o voto da maioria dos vizinhos mais próximos. No entanto, algumas diferenças e potenciais melhorias podem ser observadas:
+
+\begin{itemize}
+    \item \textbf{Pontos fortes:} A simplicidade da implementação reflete bem o conceito de classificador lazy discutido em aula. O uso de uma função clara para calcular a distância euclidiana e o uso da classe `Counter` para votação são boas práticas que mantêm o código fácil de ler e entender.
+    
+    \item \textbf{Diferenciações e problemas potenciais:} A versão discutida em aula menciona que a escolha de `k` pode impactar o desempenho do modelo, sendo muito pequeno propenso a overfitting e muito grande a underfitting. O código não aborda mecanismos para ajuste automático de `k`, algo que poderia ser explorado para evitar esses problemas. Além disso, não foi considerado o uso de pesos para os votos dos vizinhos com base nas distâncias, o que poderia aumentar a robustez a ruídos e tornar o algoritmo menos sensível à escolha de `k`.
+
+    \item \textbf{Opções de projeto e impacto:} O uso da distância euclidiana, embora adequada para muitos casos, pode não ser a escolha ideal dependendo do tipo de dados, como discutido em aula (por exemplo, dados binários assimétricos). Uma sugestão de melhoria seria a inclusão de outras opções de métricas de dissimilaridade que se adequem a diferentes tipos de dados, como a distância de Manhattan.
+    
+    \item \textbf{Sugestões de melhorias:} Além de ponderar os votos por distância, a inclusão de uma estrutura de dados eficiente, como KD-Trees, poderia melhorar a eficiência computacional, especialmente para grandes conjuntos de dados, como discutido na aula sobre o impacto do alto custo computacional no KNN.
+\end{itemize}
+
+Isso demonstra como o algoritmo gerado pelo GPT pode ser um ponto de partida válido, mas melhorias e ajustes são necessários para alinhar melhor o código aos pontos discutidos em sala.
+
+\subsection{Naive Bayes}
+
+A implementação do Naive Bayes gerada pelo GPT tambem segue bem a estrutura do classificador discutido em aula, usando o Teorema de Bayes para calcular a probabilidade posterior e assumindo independência entre os atributos. No código, a suposição de que os atributos seguem uma distribuição Gaussiana para cada classe foi corretamente aplicada, o que é uma escolha comum para atributos contínuos.
+
+\begin{itemize}
+    \item \textbf{Pontos fortes:} O algoritmo é eficiente, realizando o cálculo das probabilidades por meio de uma única varredura nos dados de treino e armazenando os parâmetros necessários (média, variância e prior) para cada classe, o que reflete o que foi discutido em aula sobre a eficiência do Naive Bayes. Além disso, o uso de logaritmos para evitar underflow numérico ao multiplicar pequenas probabilidades é uma escolha inteligente, garantindo maior estabilidade numérica.
+    
+    \item \textbf{Diferenças e potenciais problemas:} Uma diferença em relação ao que foi visto em aula é que a implementação assume uma distribuição Gaussiana para os atributos, o que pode não ser ideal se os dados forem categóricos ou não seguirem essa distribuição. A aula também menciona a robustez do Naive Bayes para lidar com atributos irrelevantes, o que não está explícito no código. No entanto, o modelo em si herda essa característica, mesmo que o código não faça ajustes específicos para detectar atributos irrelevantes.
+    
+    \item \textbf{Opções de projeto e impacto:} O uso da distribuição Gaussiana como densidade de probabilidade é uma escolha projetual que funciona bem para dados contínuos, mas a implementação poderia ser expandida para incluir outros tipos de distribuição (como a Bernoulli para atributos binários). Isso ampliaria a aplicabilidade do código em diferentes cenários de dados.
+    
+    \item \textbf{Sugestões de melhorias}: Seria interessante adicionar um tratamento mais flexível para lidar com atributos de diferentes naturezas (discretos e contínuos), algo que o Naive Bayes faz bem em teoria, mas não está explícito nesta implementação. Além disso, a inclusão de um processo de seleção de atributos poderia ser útil para lidar com redundâncias, conforme discutido em aula.
+\end{itemize}
+
+Vemos que o código gerado pelo GPT está alinhado com os princípios fundamentais do Naive Bayes, mas poderia ser refinado para abranger mais cenários e aumentar sua flexibilidade.
+
+\subsection{Árvore de Decisão}
+
+Comparando o algoritmo fornecido com o que foi ensinado em sala de aula, podemos identificar vários pontos de convergência e algumas áreas onde há espaço para discussão. Vamos analisá-los em termos de conceitos e decisões de design:
+
+\subsection*{Semelhanças}
+
+\begin{itemize}
+    \item \textbf{Estrutura básica:} O algoritmo implementado segue a ideia central do método de indução top-down das árvores de decisão, que é o algoritmo de Hunt. Ele parte de um conjunto de dados e divide os registros com base no atributo que otimiza localmente determinado critério de divisão (neste caso, o índice Gini), tal como discutido em aula.
+    
+    \item \textbf{Uso do índice Gini:} O código utiliza o índice Gini para avaliar a pureza dos nós, o que está de acordo com as métricas de impureza discutidas. Em aula, vimos três principais medidas de impureza (índice Gini, entropia e erro de classificação), e o Gini é bastante comum na prática devido à sua simplicidade.
+    
+    \item \textbf{Recursividade:} A árvore é construída de maneira recursiva, e as divisões continuam até se alcançar critérios de parada, como profundidade máxima da árvore ou o tamanho mínimo de instâncias em um nó, alinhado com a estratégia gulosa vista em sala.
+    
+    \item \textbf{Divisões binárias:} O algoritmo implementa apenas divisões binárias para atributos contínuos, uma escolha comum para simplificar o processo e que também foi abordada nas aulas.
+\end{itemize}
+
+\subsection*{Diferenças e pontos de discussão}
+
+\begin{itemize}
+    \item \textbf{Critério de parada:} No algoritmo fornecido, os critérios de parada incluem o limite de profundidade da árvore (max\_depth) e o número mínimo de instâncias em um nó (min\_size). Em aula, foi discutido que outros critérios de parada poderiam ser usados, como a homogeneidade das classes ou a impossibilidade de melhorar o critério de divisão, por exemplo, quando todos os atributos restantes têm o mesmo valor. O código não leva em consideração diretamente a pureza do nó ao decidir parar, o que poderia ser uma adição interessante.
+    
+    \item \textbf{Divisão para atributos categóricos:} O código fornecido parece focado em atributos contínuos (pelo menos no exemplo dado). Em sala de aula, discutiu-se a divisão tanto para atributos contínuos quanto categóricos (nominais e ordinais). O código atual teria que ser adaptado para lidar com atributos categóricos, especialmente para suportar divisões múltiplas, que também foram abordadas em aula.
+    
+    \item \textbf{Critério de escolha do atributo:} O algoritmo sempre escolhe o atributo com a menor impureza medida pelo índice Gini, o que está correto. No entanto, poderia ser interessante comparar o desempenho com outros critérios discutidos, como a **entropia** ou o **erro de classificação**, para observar o impacto no modelo gerado. Isso foi mencionado como uma questão de projeto importante em sala.
+    
+    \item \textbf{Complexidade computacional:} O código implementa uma abordagem de força bruta, onde cada valor de cada atributo é testado como um possível ponto de divisão, recalculando o índice Gini para cada divisão possível. Em aula, foi mencionado que essa abordagem pode ser computacionalmente pesada, especialmente para grandes conjuntos de dados. Uma possível otimização discutida seria o pré-processamento dos atributos contínuos para calcular os limiares de divisão de forma mais eficiente.
+    
+    \item \textbf{Árvores não otimizadas:} Conforme discutido em sala, encontrar a árvore ótima é um problema NP-difícil, e heurísticas são utilizadas para se obter uma solução satisfatória. O algoritmo fornecido utiliza uma abordagem gulosa (greedy), tomando decisões localmente ótimas (minimização do índice Gini em cada nó), mas não garante a árvore globalmente ótima, o que foi mencionado como uma limitação geral das árvores de decisão.
+\end{itemize}
+
+\subsubsection*{Outras Considerações}
+
+\begin{itemize}
+    \item \textbf{Visualização da árvore:} Em sala de aula, a facilidade de interpretação das árvores de decisão foi destacada, porém o algoritmo não inclui uma funcionalidade para visualizar a árvore gerada, o que seria útil para verificar a compreensibilidade das regras criadas.
+    
+    \item \textbf{Ajuste de overfitting:} Um aspecto importante das árvores de decisão é o risco de overfitting em dados de treino. O algoritmo atual utiliza profundidade máxima e tamanho mínimo dos nós como forma de controle, mas em sala de aula, foi mencionado que técnicas como **poda** (pruning) também podem ser úteis para controlar o ajuste excessivo, algo que não foi abordado no código.
+\end{itemize}
+
+O código fornecido está alinhado com muitos dos conceitos e técnicas vistos em aula, especialmente no que diz respeito ao uso do índice Gini, à recursividade e à divisão binária de atributos contínuos. No entanto, poderia ser enriquecido ao incorporar suporte a atributos categóricos, critérios adicionais para escolha de atributos e mais técnicas de controle de overfitting, como a poda.
+
+
+
+
+\section{Conclusão}
+
+\label{sec:conclusao}
+
+    A comparação entre os três algoritmos vistos em aula — Árvore de Decisão, K-Nearest Neighbors (KNN) e Naive Bayes — e o algoritmo desenvolvido a partir do modelo GPT-4 evidenciou as semelhanças e distinções fundamentais entre os métodos tradicionais e a abordagem automatizada. Enquanto a Árvore de Decisão oferece uma estrutura interpretável e eficiente para determinados conjuntos de dados, o KNN se destaca pela simplicidade e robustez, embora sofra com grandes volumes de dados. O Naive Bayes, por sua vez, provou ser altamente eficiente em cenários com forte independência entre as variáveis, mas pode ser limitado em outros contextos. O algoritmo gerado pelo GPT-4, embora tenha demonstrado um bom desempenho em termos de precisão e flexibilidade, destacou-se pela facilidade com que foi adaptado e ajustado sem o uso de bibliotecas pré-definidas. A análise crítica dessas implementações reforçou a importância de entender os fundamentos teóricos para ajustar e otimizar algoritmos conforme as necessidades específicas de cada problema, consolidando os conceitos apresentados em sala de aula com as práticas aplicadas no desenvolvimento de modelos do zero.
+    
+    \bibliographystyle{apalike}
+    \bibliography{references}
+\end{document}
