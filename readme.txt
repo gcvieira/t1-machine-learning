@@ -1,6 +1,6 @@
 Trabalho 1 de Aprendizado de Maquina
 
-Nomes: Gabriel Ramos, Guilherme Vieira e Lucca Demichei(20103364-4)
+Nomes: Gabriel Ramos(21102138-1), Guilherme Vieira(18103690-6) e Lucca Demichei(20103364-4)
 
 Passo a passo:
 1. Acesse no browser o Google Colab disponível em: https://colab.research.google.com/
